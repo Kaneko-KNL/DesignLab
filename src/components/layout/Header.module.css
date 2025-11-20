@@ -1,0 +1,92 @@
+.header {
+    height: 56px;
+    background-color: var(--color-bg-panel);
+    border-bottom: 1px solid var(--color-border);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 var(--space-4);
+    color: var(--color-text-primary);
+}
+
+.left {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+}
+
+.logo {
+    width: 32px;
+    height: 32px;
+    background: linear-gradient(135deg, var(--color-brand-primary), var(--color-brand-accent));
+    border-radius: var(--radius-md);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 14px;
+    color: white;
+}
+
+.title {
+    font-size: 16px;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+}
+
+.version {
+    font-size: 11px;
+    color: var(--color-text-muted);
+    background-color: rgba(255, 255, 255, 0.05);
+    padding: 2px 6px;
+    border-radius: var(--radius-sm);
+}
+
+.right {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+}
+
+.iconBtn {
+    background: none;
+    border: none;
+    color: var(--color-text-secondary);
+    padding: var(--space-2);
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    transition: color var(--transition-fast), background-color var(--transition-fast);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.iconBtn:hover {
+    color: var(--color-text-primary);
+    background-color: rgba(255, 255, 255, 0.05);
+}
+
+.langBtn {
+    background: none;
+    border: 1px solid var(--color-border);
+    color: var(--color-text-secondary);
+    padding: 4px 8px;
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    transition: all var(--transition-fast);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-right: var(--space-2);
+}
+
+.langBtn:hover {
+    color: var(--color-text-primary);
+    border-color: var(--color-text-secondary);
+    background-color: rgba(255, 255, 255, 0.05);
+}
+
+.langText {
+    font-size: 12px;
+    font-weight: 600;
+}
