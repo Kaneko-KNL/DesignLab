@@ -11,7 +11,7 @@ interface DroppableAreaProps {
 }
 
 export const DroppableArea: React.FC<DroppableAreaProps> = ({ area }) => {
-    const { setNodeRef } = useDroppable({
+    const { setNodeRef, isOver } = useDroppable({
         id: area.id,
     });
 
@@ -26,13 +26,30 @@ export const DroppableArea: React.FC<DroppableAreaProps> = ({ area }) => {
             style={{
                 ...area.styles,
                 gridArea: area.gridArea,
-                minHeight: '100px', // Ensure drop target is visible even if empty
-                padding: '8px',
-                border: '1px dashed rgba(0,0,0,0.1)',
-                borderRadius: '4px',
-                transition: 'background-color 0.2s',
+                minHeight: '100px',
+                padding: '16px',
+                border: isOver ? '2px dashed #3b82f6' : '2px dashed rgba(0,0,0,0.1)',
+                borderRadius: '8px',
+                transition: 'all 0.2s ease',
+                backgroundColor: isOver ? 'rgba(59, 130, 246, 0.05)' : 'transparent',
+                display: 'flex',
+                flexDirection: 'column',
+                gap: '8px'
             }}
         >
+            {areaParts.length === 0 && (
+                <div style={{
+                    height: '100%',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    color: 'rgba(0,0,0,0.3)',
+                    fontSize: '14px',
+                    pointerEvents: 'none'
+                }}>
+                    {area.label || 'Drop items here'}
+                </div>
+            )}
             <SortableContext
                 items={area.components}
                 strategy={verticalListSortingStrategy}

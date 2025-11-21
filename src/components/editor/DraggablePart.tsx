@@ -45,6 +45,7 @@ export const DraggablePart: React.FC<DraggablePartProps> = ({ part }) => {
             {...attributes}
             {...listeners}
             onClick={handleClick}
+            data-part={part.id}
         >
             <PartRenderer part={part} />
         </div>

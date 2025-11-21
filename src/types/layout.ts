@@ -11,6 +11,11 @@ export type LayoutAreaId =
     | 'navigation'
     | 'hero'
     | 'mainContent'
+    | 'section1'
+    | 'section2'
+    | 'section3'
+    | 'section4'
+    | 'section5'
     | 'sidebar'
     | 'gallery'
     | 'footer';

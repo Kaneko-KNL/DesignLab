@@ -23,6 +23,23 @@ import { ReactExporter } from '@/lib/export/ReactExporter';
 import { BackgroundEffects } from '../effects/BackgroundEffects';
 import { PartsGallery } from '@/components/parts/PartsGallery';
 import { PartsPreview } from '@/components/parts/PartsPreview';
+import {
+    DndContext,
+    DragOverlay,
+    closestCorners,
+    KeyboardSensor,
+    PointerSensor,
+    useSensor,
+    useSensors,
+    DragEndEvent,
+    DragStartEvent,
+    DragOverEvent,
+    defaultDropAnimationSideEffects,
+    DropAnimation
+} from '@dnd-kit/core';
+import { sortableKeyboardCoordinates } from '@dnd-kit/sortable';
+import { PartRenderer } from '@/components/parts/PartRenderer';
+import { PartDefinition } from '@/lib/parts/PartsCatalog';
 
 const TABS = ['all', 'lp', 'blog', 'corporate', 'mobile', 'dashboard', 'app'] as const;
 
@@ -41,8 +58,22 @@ export default function Workspace() {
     const [exportMenuOpen, setExportMenuOpen] = useState(false);
     const { meta, theme } = useDesignStore();
     const { t } = useLanguageStore();
-    const { currentLayout, setSiteType, selectPart, selectedPartId, removePart } = useLayoutStore();
+    const { currentLayout, setSiteType, selectPart, selectedPartId, removePart, addPart, movePart, parts } = useLayoutStore();
     const prevSiteTypeRef = useRef<SiteType | null>(null);
+
+    const [activeId, setActiveId] = useState<string | null>(null);
+    const [activePart, setActivePart] = useState<any>(null);
+
+    const sensors = useSensors(
+        useSensor(PointerSensor, {
+            activationConstraint: {
+                distance: 8,
+            },
+        }),
+        useSensor(KeyboardSensor, {
+            coordinateGetter: sortableKeyboardCoordinates,
+        })
+    );
 
     // Update siteType when changing tabs (except 'all')
     useEffect(() => {
@@ -121,6 +152,131 @@ export default function Workspace() {
         }
     };
 
+    const handleDragStart = (event: DragStartEvent) => {
+        const { active } = event;
+        setActiveId(active.id as string);
+
+        if (active.data.current?.type) {
+            // Dragging from gallery
+            setActivePart({
+                type: active.data.current.type,
+                props: active.data.current.defaultProps,
+                label: active.data.current.label
+            });
+        } else {
+            // Dragging existing part
+            setActivePart(parts[active.id]);
+            selectPart(active.id as string);
+        }
+    };
+
+    const handleDragOver = (event: DragOverEvent) => {
+        // Optional: Add visual feedback logic here if needed
+    };
+
+    const handleDragEnd = (event: DragEndEvent) => {
+        const { active, over } = event;
+        setActiveId(null);
+        setActivePart(null);
+
+        if (!over) return;
+
+        const overId = over.id as string;
+        const isNewPart = !!active.data.current?.type;
+
+        if (isNewPart) {
+            // Dropping new part from gallery
+            const partDef = active.data.current as PartDefinition;
+
+            // Check if dropped on a valid area
+            const isArea = currentLayout?.areas.some(a => a.id === overId);
+            let targetAreaId = overId;
+            let index = 0;
+
+            if (!isArea) {
+                // Dropped on another part?
+                const overPart = parts[overId];
+                if (overPart) {
+                    targetAreaId = overPart.areaId;
+                    const area = currentLayout?.areas.find(a => a.id === targetAreaId);
+                    if (area) {
+                        index = area.components.indexOf(overId) + 1;
+                    }
+                } else {
+                    // Invalid drop target
+                    return;
+                }
+            } else {
+                // Dropped on empty area or at end of area
+                const area = currentLayout?.areas.find(a => a.id === targetAreaId);
+                if (area) {
+                    index = area.components.length;
+                }
+            }
+
+            const newPart = {
+                id: `${partDef.type}-${Date.now()}`,
+                type: partDef.type,
+                label: partDef.label,
+                areaId: targetAreaId,
+                props: { ...partDef.defaultProps }
+            };
+
+            addPart(newPart);
+
+            if (index < (currentLayout?.areas.find(a => a.id === targetAreaId)?.components.length || 0)) {
+                setTimeout(() => {
+                    movePart(newPart.id, targetAreaId, index);
+                }, 0);
+            }
+
+        } else {
+            // Reordering existing parts
+            const activeId = active.id as string;
+
+            // Find which area the "over" element belongs to
+            let targetAreaId = overId;
+            let newIndex = 0;
+
+            // Check if overId is a known area ID
+            const isOverArea = currentLayout?.areas.some(a => a.id === overId);
+
+            if (!isOverArea) {
+                // Dropped over another part
+                const overPart = parts[overId];
+                if (overPart) {
+                    targetAreaId = overPart.areaId;
+                    // Find index of overPart in that area
+                    const area = currentLayout?.areas.find(a => a.id === targetAreaId);
+                    if (area) {
+                        const overIndex = area.components.indexOf(overId);
+                        newIndex = overIndex;
+                    }
+                }
+            } else {
+                // Dropped directly on an area
+                const area = currentLayout?.areas.find(a => a.id === targetAreaId);
+                if (area) {
+                    newIndex = area.components.length;
+                }
+            }
+
+            if (activeId !== overId) {
+                movePart(activeId, targetAreaId, newIndex);
+            }
+        }
+    };
+
+    const dropAnimation: DropAnimation = {
+        sideEffects: defaultDropAnimationSideEffects({
+            styles: {
+                active: {
+                    opacity: '0.5',
+                },
+            },
+        }),
+    };
+
     const renderContent = () => {
         if (activeTab === 'all') {
             return (
@@ -163,115 +319,150 @@ export default function Workspace() {
     };
 
     return (
-        <main className={styles.workspace} style={{ backgroundColor: theme.colors.background, transition: 'background-color 0.3s ease' }}>
-            <BackgroundEffects />
-            <div className={styles.toolbar}>
-                <div className={styles.tabs}>
-                    {TABS.map((tab) => (
-                        <button
-                            key={tab}
-                            className={clsx(styles.tab, activeTab === tab && styles.activeTab)}
-                            onClick={() => setActiveTab(tab)}
-                        >
-                            {t.workspace.tabs[tab]}
-                        </button>
-                    ))}
-                </div>
-                <div className={styles.actions}>
-                    {activeTab !== 'all' && (
-                        <ResponsivePanel
-                            currentViewport={viewport}
-                            onViewportChange={setViewport}
-                        />
-                    )}
-                    <span className={styles.filename}>
-                        {meta.name}
-                        {meta.isDirty && <span className={styles.dirty}>*</span>}
-                    </span>
-                    <button className={styles.actionBtn} onClick={handleSave}>
-                        <Save size={16} />
-                        <span>{t.workspace.actions.save}</span>
-                    </button>
-                    <div style={{ position: 'relative' }}>
-                        <button
-                            className={clsx(styles.actionBtn, styles.primaryBtn)}
-                            onClick={() => setExportMenuOpen(!exportMenuOpen)}
-                        >
-                            <FileDown size={16} />
-                            <span>Export</span>
-                            <ChevronDown size={14} />
-                        </button>
-                        {exportMenuOpen && (
-                            <div style={{
-                                position: 'absolute',
-                                top: '100%',
-                                right: 0,
-                                marginTop: '4px',
-                                backgroundColor: '#fff',
-                                border: '1px solid #e5e7eb',
-                                borderRadius: '6px',
-                                boxShadow: '0 4px 6px rgba(0,0,0,0.1)',
-                                zIndex: 50,
-                                minWidth: '150px'
-                            }}>
-                                <button
-                                    onClick={() => {
-                                        handlePromptize();
-                                        setExportMenuOpen(false);
-                                    }}
-                                    style={{
-                                        display: 'flex',
-                                        alignItems: 'center',
-                                        gap: '8px',
-                                        width: '100%',
-                                        padding: '8px 12px',
-                                        border: 'none',
-                                        background: 'transparent',
-                                        cursor: 'pointer',
-                                        fontSize: '14px',
-                                        textAlign: 'left'
-                                    }}
-                                >
-                                    <Sparkles size={16} />
-                                    <span>YAML</span>
-                                </button>
-                                <button
-                                    onClick={() => {
-                                        handleExportReact();
-                                        setExportMenuOpen(false);
-                                    }}
-                                    style={{
-                                        display: 'flex',
-                                        alignItems: 'center',
-                                        gap: '8px',
-                                        width: '100%',
-                                        padding: '8px 12px',
-                                        border: 'none',
-                                        background: 'transparent',
-                                        cursor: 'pointer',
-                                        fontSize: '14px',
-                                        textAlign: 'left'
-                                    }}
-                                >
-                                    <FileDown size={16} />
-                                    <span>React Component</span>
-                                </button>
-                            </div>
+        <DndContext
+            sensors={sensors}
+            collisionDetection={closestCorners}
+            onDragStart={handleDragStart}
+            onDragOver={handleDragOver}
+            onDragEnd={handleDragEnd}
+        >
+            <main className={styles.workspace} style={{ backgroundColor: theme.colors.background, transition: 'background-color 0.3s ease' }}>
+                <BackgroundEffects />
+                <div className={styles.toolbar}>
+                    <div className={styles.tabs}>
+                        {TABS.map((tab) => (
+                            <button
+                                key={tab}
+                                className={clsx(styles.tab, activeTab === tab && styles.activeTab)}
+                                onClick={() => setActiveTab(tab)}
+                            >
+                                {t.workspace.tabs[tab]}
+                            </button>
+                        ))}
+                    </div>
+                    <div className={styles.actions}>
+                        {activeTab !== 'all' && (
+                            <ResponsivePanel
+                                currentViewport={viewport}
+                                onViewportChange={setViewport}
+                            />
                         )}
+                        <span className={styles.filename}>
+                            {meta.name}
+                            {meta.isDirty && <span className={styles.dirty}>*</span>}
+                        </span>
+                        <button className={styles.actionBtn} onClick={handleSave}>
+                            <Save size={16} />
+                            <span>{t.workspace.actions.save}</span>
+                        </button>
+                        <div style={{ position: 'relative' }}>
+                            <button
+                                className={clsx(styles.actionBtn, styles.primaryBtn)}
+                                onClick={() => setExportMenuOpen(!exportMenuOpen)}
+                            >
+                                <FileDown size={16} />
+                                <span>Export</span>
+                                <ChevronDown size={14} />
+                            </button>
+                            {exportMenuOpen && (
+                                <div style={{
+                                    position: 'absolute',
+                                    top: '100%',
+                                    right: 0,
+                                    marginTop: '4px',
+                                    backgroundColor: '#fff',
+                                    border: '1px solid #e5e7eb',
+                                    borderRadius: '6px',
+                                    boxShadow: '0 4px 6px rgba(0,0,0,0.1)',
+                                    zIndex: 50,
+                                    minWidth: '150px'
+                                }}>
+                                    <button
+                                        onClick={() => {
+                                            handlePromptize();
+                                            setExportMenuOpen(false);
+                                        }}
+                                        style={{
+                                            display: 'flex',
+                                            alignItems: 'center',
+                                            gap: '8px',
+                                            width: '100%',
+                                            padding: '8px 12px',
+                                            border: 'none',
+                                            background: 'transparent',
+                                            cursor: 'pointer',
+                                            fontSize: '14px',
+                                            textAlign: 'left'
+                                        }}
+                                    >
+                                        <Sparkles size={16} />
+                                        <span>YAML</span>
+                                    </button>
+                                    <button
+                                        onClick={() => {
+                                            handleExportReact();
+                                            setExportMenuOpen(false);
+                                        }}
+                                        style={{
+                                            display: 'flex',
+                                            alignItems: 'center',
+                                            gap: '8px',
+                                            width: '100%',
+                                            padding: '8px 12px',
+                                            border: 'none',
+                                            background: 'transparent',
+                                            cursor: 'pointer',
+                                            fontSize: '14px',
+                                            textAlign: 'left'
+                                        }}
+                                    >
+                                        <FileDown size={16} />
+                                        <span>React Component</span>
+                                    </button>
+                                </div>
+                            )}
+                        </div>
                     </div>
                 </div>
-            </div>
 
-            <div className={styles.content}>
-                <div className={clsx(styles.previewArea, activeTab !== 'all' && styles.layoutPreview)}>
-                    {renderContent()}
-                </div>
-                {activeTab !== 'all' && (
-                    <div className={styles.propertyPanel}>
-                        <PartsGallery />
+                <div className={styles.content}>
+                    <div className={clsx(styles.previewArea, activeTab !== 'all' && styles.layoutPreview)}>
+                        {renderContent()}
                     </div>
-                )}
-            </div>
-        </main>
+                    {activeTab !== 'all' && (
+                        <div className={styles.propertyPanel}>
+                            <PartsGallery />
+                        </div>
+                    )}
+                </div>
+
+                <DragOverlay dropAnimation={dropAnimation}>
+                    {activePart ? (
+                        <div style={{
+                            opacity: 0.8,
+                            transform: 'scale(0.9)',
+                            cursor: 'grabbing'
+                        }}>
+                            {activePart.id ? (
+                                <PartRenderer part={activePart} />
+                            ) : (
+                                // Preview for new part from gallery
+                                <div style={{
+                                    padding: '16px',
+                                    background: theme.colors.surface,
+                                    borderRadius: theme.radius,
+                                    boxShadow: theme.shadow,
+                                    border: `1px solid ${theme.colors.primary}`,
+                                    width: '280px'
+                                }}>
+                                    <div style={{ fontWeight: 'bold', marginBottom: '8px' }}>{activePart.label}</div>
+                                    <div style={{ fontSize: '12px', opacity: 0.7 }}>Drag to add to layout</div>
+                                </div>
+                            )}
+                        </div>
+                    ) : null}
+                </DragOverlay>
+            </main>
+        </DndContext>
     );
 }

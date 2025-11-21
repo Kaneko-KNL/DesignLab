@@ -357,34 +357,52 @@ export function PartsGallery() {
     );
 }
 
+import { useDraggable } from '@dnd-kit/core';
+import { CSS } from '@dnd-kit/utilities';
+
+// ... existing imports
+
+// ... PartsGallery component ...
+
 function PartCard({ part, onAdd }: { part: PartDefinition; onAdd: () => void }) {
     const { theme } = useDesignStore();
     const [isHovered, setIsHovered] = useState(false);
 
+    const { attributes, listeners, setNodeRef, transform, isDragging } = useDraggable({
+        id: `gallery-${part.type}`,
+        data: part
+    });
+
+    const style = {
+        transform: CSS.Translate.toString(transform),
+        opacity: isDragging ? 0.5 : 1,
+        position: 'relative' as const,
+        border: isHovered
+            ? `1px solid ${theme.colors.primary}40`
+            : '1px solid rgba(255, 255, 255, 0.12)',
+        borderRadius: '16px',
+        padding: '16px',
+        cursor: 'grab',
+        transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
+        background: isHovered
+            ? `linear-gradient(135deg, rgba(255, 255, 255, 0.15) 0%, rgba(255, 255, 255, 0.05) 100%)`
+            : 'linear-gradient(135deg, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0.02) 100%)',
+        backdropFilter: 'blur(10px)',
+        WebkitBackdropFilter: 'blur(10px)',
+        boxShadow: isHovered
+            ? `0 12px 24px rgba(0, 0, 0, 0.4), 0 0 0 1px ${theme.colors.primary}20, inset 0 1px 0 rgba(255, 255, 255, 0.1)`
+            : '0 4px 12px rgba(0, 0, 0, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.05)',
+        overflow: 'hidden'
+    };
+
     return (
         <div
+            ref={setNodeRef}
+            {...listeners}
+            {...attributes}
             onMouseEnter={() => setIsHovered(true)}
             onMouseLeave={() => setIsHovered(false)}
-            style={{
-                position: 'relative',
-                border: isHovered
-                    ? `1px solid ${theme.colors.primary}40`
-                    : '1px solid rgba(255, 255, 255, 0.12)',
-                borderRadius: '16px',
-                padding: '16px',
-                cursor: 'pointer',
-                transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
-                background: isHovered
-                    ? `linear-gradient(135deg, rgba(255, 255, 255, 0.15) 0%, rgba(255, 255, 255, 0.05) 100%)`
-                    : 'linear-gradient(135deg, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0.02) 100%)',
-                backdropFilter: 'blur(10px)',
-                WebkitBackdropFilter: 'blur(10px)',
-                transform: isHovered ? 'translateY(-4px) scale(1.02)' : 'translateY(0) scale(1)',
-                boxShadow: isHovered
-                    ? `0 12px 24px rgba(0, 0, 0, 0.4), 0 0 0 1px ${theme.colors.primary}20, inset 0 1px 0 rgba(255, 255, 255, 0.1)`
-                    : '0 4px 12px rgba(0, 0, 0, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.05)',
-                overflow: 'hidden'
-            }}
+            style={style}
             onClick={onAdd}
         >
             {/* Gradient overlay on hover */}

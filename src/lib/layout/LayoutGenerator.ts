@@ -38,7 +38,11 @@ export class LayoutGenerator {
                 return [
                     ...commonAreas,
                     { id: 'hero', label: 'Hero Section', components: [], gridArea: 'hero' },
-                    { id: 'mainContent', label: 'Main Content', components: [], gridArea: 'main' },
+                    { id: 'section1', label: 'Section 1', components: [], gridArea: 'sect1' },
+                    { id: 'section2', label: 'Section 2', components: [], gridArea: 'sect2' },
+                    { id: 'section3', label: 'Section 3', components: [], gridArea: 'sect3' },
+                    { id: 'section4', label: 'Section 4', components: [], gridArea: 'sect4' },
+                    { id: 'section5', label: 'Section 5', components: [], gridArea: 'sect5' },
                 ];
             case 'blog':
                 return [
@@ -73,6 +77,21 @@ export class LayoutGenerator {
     private calculateGrid(siteType: SiteType): GridSpec {
         switch (siteType) {
             case 'landing-page':
+                return {
+                    columns: 1,
+                    rows: 'auto auto auto auto auto auto auto auto',
+                    areas: [
+                        '"header"',
+                        '"hero"',
+                        '"sect1"',
+                        '"sect2"',
+                        '"sect3"',
+                        '"sect4"',
+                        '"sect5"',
+                        '"footer"'
+                    ],
+                    gap: '0px'
+                };
             case 'corporate':
                 return {
                     columns: 1,
