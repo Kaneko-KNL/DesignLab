@@ -2,7 +2,7 @@
 
 **DesignLab** is an intelligent web design system that automatically generates beautiful, responsive layouts using AI-powered design principles. Create stunning websites with just a few clicks.
 
-![Version](https://img.shields.io/badge/version-0.1.1-blue)
+![Version](https://img.shields.io/badge/version-0.1.2-blue)
 ![Next.js](https://img.shields.io/badge/Next.js-16.0-black)
 ![TypeScript](https://img.shields.io/badge/TypeScript-5.0-blue)
 ![License](https://img.shields.io/badge/license-MIT-green)

@@ -17,7 +17,7 @@ export default function Header() {
             <div className={styles.left}>
                 <div className={styles.logo}>DL</div>
                 <h1 className={styles.title}>DesignLab</h1>
-                <span className={styles.version}>v0.1.1</span>
+                <span className={styles.version}>v0.1.2</span>
             </div>
             <div className={styles.right}>
                 <button className={styles.langBtn} onClick={toggleLanguage} title="Switch Language">

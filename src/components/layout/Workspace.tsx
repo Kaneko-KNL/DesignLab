@@ -9,7 +9,7 @@ import { useDesignStore } from '@/store/designStore';
 import { useLanguageStore } from '@/store/languageStore';
 import { useLayoutStore } from '@/store/layoutStore';
 import { SiteType } from '@/types/layout';
-import { PreviewButton, PreviewCard, PreviewInput, PreviewBadge, PreviewSection, PreviewHero, PreviewArticle, PreviewDashboard, PreviewForm } from '@/components/preview/PreviewComponents';
+import { PreviewButton, PreviewCard, PreviewInput, PreviewBadge, PreviewSection, PreviewHero, PreviewArticle, PreviewDashboard, PreviewForm, PreviewSelect, PreviewSelectExpanded } from '@/components/preview/PreviewComponents';
 import { PreviewToast, PreviewAlert, PreviewModal, PreviewTooltip } from '@/components/preview/PreviewFeedback';
 import { PreviewDrawer, PreviewBottomSheet } from '@/components/preview/PreviewNavigation';
 import { PreviewSpinner, PreviewProgress, PreviewSkeleton } from '@/components/preview/PreviewStatus';
@@ -21,6 +21,8 @@ import { PropertyPanel } from '@/components/editor/PropertyPanel';
 import { ResponsivePanel, Viewport, getViewportWidth } from '@/components/editor/ResponsivePanel';
 import { ReactExporter } from '@/lib/export/ReactExporter';
 import { BackgroundEffects } from '../effects/BackgroundEffects';
+import { PartsGallery } from '@/components/parts/PartsGallery';
+import { PartsPreview } from '@/components/parts/PartsPreview';
 
 const TABS = ['all', 'lp', 'blog', 'corporate', 'mobile', 'dashboard', 'app'] as const;
 
@@ -39,7 +41,7 @@ export default function Workspace() {
     const [exportMenuOpen, setExportMenuOpen] = useState(false);
     const { meta, theme } = useDesignStore();
     const { t } = useLanguageStore();
-    const { currentLayout, setSiteType, selectPart, selectedPartId } = useLayoutStore();
+    const { currentLayout, setSiteType, selectPart, selectedPartId, removePart } = useLayoutStore();
     const prevSiteTypeRef = useRef<SiteType | null>(null);
 
     // Update siteType when changing tabs (except 'all')
@@ -64,6 +66,24 @@ export default function Workspace() {
         document.addEventListener('click', handleClickOutside);
         return () => document.removeEventListener('click', handleClickOutside);
     }, [selectPart]);
+
+    // Delete part when pressing Delete key
+    useEffect(() => {
+        const handleKeyDown = (e: KeyboardEvent) => {
+            if ((e.key === 'Delete' || e.key === 'Backspace') && selectedPartId) {
+                // Prevent default behavior if not in an input field
+                const target = e.target as HTMLElement;
+                const isInputField = target.tagName === 'INPUT' || target.tagName === 'TEXTAREA' || target.isContentEditable;
+
+                if (!isInputField) {
+                    e.preventDefault();
+                    removePart(selectedPartId);
+                }
+            }
+        };
+        document.addEventListener('keydown', handleKeyDown);
+        return () => document.removeEventListener('keydown', handleKeyDown);
+    }, [selectedPartId, removePart]);
 
     const handleSave = () => {
         const yaml = generateDesignYaml(useDesignStore.getState());
@@ -117,40 +137,23 @@ export default function Workspace() {
                         <PreviewTypography />
                     </div>
 
-                    <PreviewSection title={t.workspace.preview.core}>
-                        <PreviewButton />
-                        <PreviewInput />
-                        <PreviewBadge />
-                        <PreviewTooltip />
-                    </PreviewSection>
+                    <div style={{ marginBottom: '24px', width: '100%' }}>
+                        <h3 style={{
+                            fontSize: '18px',
+                            fontWeight: 600,
+                            color: theme.colors.text,
+                            marginBottom: '8px'
+                        }}>パーツプレビュー</h3>
+                        <p style={{
+                            fontSize: '14px',
+                            color: getContrastMutedColor(theme.colors.background),
+                            marginBottom: '0'
+                        }}>
+                            全パーツのデザインをカテゴリごとに表示
+                        </p>
+                    </div>
 
-                    <PreviewSection title={t.workspace.preview.containers}>
-                        <PreviewCard />
-                        <PreviewArticle />
-                    </PreviewSection>
-
-                    <PreviewSection title="Feedback">
-                        <PreviewToast />
-                        <PreviewAlert />
-                        <PreviewModal />
-                    </PreviewSection>
-
-                    <PreviewSection title="Navigation">
-                        <PreviewDrawer />
-                        <PreviewBottomSheet />
-                    </PreviewSection>
-
-                    <PreviewSection title="Status">
-                        <PreviewSpinner />
-                        <PreviewProgress />
-                        <PreviewSkeleton />
-                    </PreviewSection>
-
-                    <PreviewSection title="Sections">
-                        <PreviewHero />
-                        <PreviewDashboard />
-                        <PreviewForm />
-                    </PreviewSection>
+                    <PartsPreview />
                 </>
             );
         }
@@ -265,13 +268,7 @@ export default function Workspace() {
                 </div>
                 {activeTab !== 'all' && (
                     <div className={styles.propertyPanel}>
-                        {selectedPartId ? (
-                            <PropertyPanel />
-                        ) : (
-                            <div className={styles.emptyPropertyPanel}>
-                                <p>Select an element to edit properties</p>
-                            </div>
-                        )}
+                        <PartsGallery />
                     </div>
                 )}
             </div>
