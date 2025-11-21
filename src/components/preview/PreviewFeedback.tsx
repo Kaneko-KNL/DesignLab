@@ -3,7 +3,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { useDesignStore } from '@/store/designStore';
-import { Bell, AlertTriangle, Info, CheckCircle, X } from 'lucide-react';
+import { AlertTriangle, CheckCircle, X } from 'lucide-react';
 
 export function PreviewToast() {
     const { theme } = useDesignStore();

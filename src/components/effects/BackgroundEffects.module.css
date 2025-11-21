@@ -1,0 +1,345 @@
+/* Container */
+.container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+    pointer-events: none;
+    overflow: hidden;
+}
+
+.interactive {
+    pointer-events: auto;
+}
+
+/* 1. Animated Gradients */
+.gradient {
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(-45deg, var(--concept-0), var(--concept-1), var(--concept-2), var(--concept-3));
+    background-size: 400% 400%;
+    opacity: 0.3;
+}
+
+.animate-gradient {
+    animation: gradientBG calc(var(--param1, 15) * 1s) ease infinite;
+}
+
+@keyframes gradientBG {
+    0% {
+        background-position: 0% 50%;
+    }
+
+    50% {
+        background-position: 100% 50%;
+    }
+
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+/* 2. CSS Patterns */
+.pattern {
+    width: 100%;
+    height: 100%;
+    opacity: 0.1;
+    background-image: repeating-linear-gradient(45deg,
+            var(--concept-1) 0,
+            var(--concept-1) 1px,
+            transparent 0,
+            transparent 50%);
+    background-size: calc(var(--param1, 40) * 1px) calc(var(--param1, 40) * 1px);
+}
+
+.animate-pattern {
+    animation: patternMove 8s linear infinite;
+}
+
+@keyframes patternMove {
+    0% {
+        background-position: 0 0;
+    }
+
+    100% {
+        background-position: calc(var(--param1, 40) * 1px) calc(var(--param1, 40) * 1px);
+    }
+}
+
+/* 3. Floating Shapes */
+.shapes {
+    width: 100%;
+    height: 100%;
+    position: relative;
+}
+
+.shape {
+    position: absolute;
+    bottom: -100px;
+    opacity: 0.35;
+    border-radius: 50%;
+}
+
+.animate-shapes .shape:nth-child(1) {
+    width: 80px;
+    height: 80px;
+    left: 10%;
+    background-color: var(--concept-1);
+    animation: floatUp calc(var(--param2, 15) * 1s) linear infinite;
+}
+
+.animate-shapes .shape:nth-child(2) {
+    width: 120px;
+    height: 120px;
+    left: 30%;
+    background-color: var(--concept-2);
+    animation: floatUp calc(var(--param2, 15) * 1s) linear infinite 2s;
+}
+
+.animate-shapes .shape:nth-child(3) {
+    width: 60px;
+    height: 60px;
+    left: 50%;
+    background-color: var(--concept-3);
+    animation: floatUp calc(var(--param2, 15) * 0.8s) linear infinite 4s;
+}
+
+.animate-shapes .shape:nth-child(4) {
+    width: 100px;
+    height: 100px;
+    left: 70%;
+    background-color: var(--concept-4);
+    animation: floatUp calc(var(--param2, 15) * 1.2s) linear infinite 6s;
+}
+
+@keyframes floatUp {
+    0% {
+        transform: translateY(0) rotate(0deg);
+        opacity: 0.35;
+    }
+
+    100% {
+        transform: translateY(-100vh) rotate(360deg);
+        opacity: 0;
+    }
+}
+
+/* 4. Breathing Glow */
+.glow {
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle at calc(var(--param1, 50) * 1%) 50%, var(--primary-color), transparent 70%);
+    opacity: 0.2;
+}
+
+.animate-glow {
+    animation: breathe calc(var(--param2, 8) * 1s) ease-in-out infinite;
+}
+
+@keyframes breathe {
+
+    0%,
+    100% {
+        transform: scale(1);
+        opacity: 0.2;
+    }
+
+    50% {
+        transform: scale(1.2);
+        opacity: 0.3;
+    }
+}
+
+/* 5. SVG Blobs */
+.blobs {
+    width: 100%;
+    height: 100%;
+    transform: scale(var(--param1, 1));
+}
+
+.blob-path {
+    transition: all 0.3s ease;
+}
+
+.animate-blobs .blob-path {
+    animation: blobPulse 10s ease-in-out infinite;
+    transform-origin: center;
+}
+
+@keyframes blobPulse {
+
+    0%,
+    100% {
+        transform: scale(1) translate(0, 0);
+    }
+
+    33% {
+        transform: scale(1.1) translate(2%, -2%);
+    }
+
+    66% {
+        transform: scale(0.9) translate(-2%, 2%);
+    }
+}
+
+/* 6. SVG Lines */
+.lines {
+    width: 100%;
+    height: 100%;
+    transform: rotate(calc(var(--param2, 45) * 1deg));
+}
+
+.line-path {
+    stroke: var(--text-color);
+    stroke-width: 1;
+    fill: none;
+    opacity: 0.1;
+    stroke-dasharray: 1000;
+    stroke-dashoffset: 1000;
+}
+
+.animate-lines .line-path {
+    animation: drawLine 10s linear infinite;
+}
+
+@keyframes drawLine {
+    0% {
+        stroke-dashoffset: 1000;
+    }
+
+    50% {
+        stroke-dashoffset: 0;
+    }
+
+    100% {
+        stroke-dashoffset: -1000;
+    }
+}
+
+/* 7. SVG Waves */
+.waves {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: calc(200px * var(--param2, 1));
+    overflow: visible;
+}
+
+.wave-path {
+    fill: var(--primary-color);
+    opacity: 0.2;
+}
+
+.animate-waves .wave-path {
+    animation: waveMove calc(var(--param1, 12) * 1s) linear infinite;
+}
+
+@keyframes waveMove {
+    0% {
+        transform: translateX(0);
+    }
+
+    100% {
+        transform: translateX(-50%);
+    }
+}
+
+/* 8. Spotlight */
+.spotlight {
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(calc(var(--param2, 500) * 1px) circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
+            rgba(255, 255, 255, 0.1),
+            transparent 40%);
+    transition: background calc(var(--param1, 0.5) * 1s) ease-out;
+}
+
+/* 9. Parallax */
+.parallax {
+    width: 100%;
+    height: 100%;
+    transform: rotate(calc(var(--param2, 45) * 1deg));
+}
+
+.parallax-layer {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: radial-gradient(circle, var(--primary-color) 1px, transparent 1px);
+    background-size: calc(var(--param1, 50) * 1px) calc(var(--param1, 50) * 1px);
+    opacity: 0.2;
+}
+
+/* 10. Noise */
+.noise {
+    width: 100%;
+    height: 100%;
+    position: relative;
+}
+
+.noise::before {
+    content: "";
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.1'/%3E%3C/svg%3E");
+    background-size: calc(100px * var(--param1, 1));
+    opacity: calc(var(--param2, 0.1) * 0.5);
+    pointer-events: none;
+}
+
+.animate-noise::before {
+    animation: noiseMove 0.2s infinite;
+}
+
+@keyframes noiseMove {
+    0% {
+        transform: translate(0, 0);
+    }
+
+    10% {
+        transform: translate(-5%, -5%);
+    }
+
+    20% {
+        transform: translate(-10%, 5%);
+    }
+
+    30% {
+        transform: translate(5%, -10%);
+    }
+
+    40% {
+        transform: translate(-5%, 15%);
+    }
+
+    50% {
+        transform: translate(5%, 5%);
+    }
+
+    60% {
+        transform: translate(-10%, 10%);
+    }
+
+    70% {
+        transform: translate(10%, -5%);
+    }
+
+    80% {
+        transform: translate(-5%, -10%);
+    }
+
+    90% {
+        transform: translate(5%, 15%);
+    }
+
+    100% {
+        transform: translate(0, 0);
+    }
+}

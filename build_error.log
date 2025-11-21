@@ -1,0 +1,189 @@
+
+> Build error occurred
+Error: Turbopack build failed with 7 errors:
+./src/app/globals.css
+Error evaluating Node.js code
+Error: It looks like you're trying to use `tailwindcss` directly as a PostCSS plugin. The PostCSS plugin has moved to a separate package, so to continue using Tailwind CSS with PostCSS you'll need to install `@tailwindcss/postcss` and update your PostCSS configuration.
+    [at at (F:\KNLAB\2025_DesignLab\node_modules\tailwindcss\dist\lib.js:38:1629)]
+    at turbopack:///[turbopack-node]/transforms/postcss.ts:56:14 [F:\KNLAB\2025_DesignLab\.next\build\chunks\[root-of-the-server]__51225daf._.js:140:20]
+    [at <anonymous>]
+    at Module.init (turbopack:///[turbopack-node]/transforms/postcss.ts:43:33) [F:\KNLAB\2025_DesignLab\.next\build\chunks\[root-of-the-server]__51225daf._.js:130:35]
+    at run (turbopack:///[turbopack-node]/ipc/evaluate.ts:77:20) [F:\KNLAB\2025_DesignLab\.next\build\chunks\[root-of-the-server]__974941ed._.js:429:26]
+    [at process.processTicksAndRejections (node:internal/process/task_queues:105:5)]
+
+Import trace:
+  Client Component Browser:
+    ./src/app/globals.css [Client Component Browser]
+    ./src/app/layout.tsx [Server Component]
+
+
+./src/components/layout/DesignPanel.module.css
+Error evaluating Node.js code
+Error: It looks like you're trying to use `tailwindcss` directly as a PostCSS plugin. The PostCSS plugin has moved to a separate package, so to continue using Tailwind CSS with PostCSS you'll need to install `@tailwindcss/postcss` and update your PostCSS configuration.
+    [at at (F:\KNLAB\2025_DesignLab\node_modules\tailwindcss\dist\lib.js:38:1629)]
+    at turbopack:///[turbopack-node]/transforms/postcss.ts:56:14 [F:\KNLAB\2025_DesignLab\.next\build\chunks\[root-of-the-server]__51225daf._.js:140:20]
+    [at <anonymous>]
+    at Module.init (turbopack:///[turbopack-node]/transforms/postcss.ts:43:33) [F:\KNLAB\2025_DesignLab\.next\build\chunks\[root-of-the-server]__51225daf._.js:130:35]
+    at run (turbopack:///[turbopack-node]/ipc/evaluate.ts:77:20) [F:\KNLAB\2025_DesignLab\.next\build\chunks\[root-of-the-server]__974941ed._.js:429:26]
+    [at process.processTicksAndRejections (node:internal/process/task_queues:105:5)]
+
+Import traces:
+  Client Component Browser:
+    ./src/components/layout/DesignPanel.module.css [Client Component Browser]
+    ./src/components/layout/DesignPanel.tsx [Client Component Browser]
+    ./src/components/layout/MainLayout.tsx [Client Component Browser]
+    ./src/components/layout/MainLayout.tsx [Server Component]
+    ./src/app/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/components/layout/DesignPanel.module.css [Client Component SSR]
+    ./src/components/layout/DesignPanel.tsx [Client Component SSR]
+    ./src/components/layout/MainLayout.tsx [Client Component SSR]
+    ./src/components/layout/MainLayout.tsx [Server Component]
+    ./src/app/page.tsx [Server Component]
+
+
+./src/components/layout/Header.module.css
+Error evaluating Node.js code
+Error: It looks like you're trying to use `tailwindcss` directly as a PostCSS plugin. The PostCSS plugin has moved to a separate package, so to continue using Tailwind CSS with PostCSS you'll need to install `@tailwindcss/postcss` and update your PostCSS configuration.
+    [at at (F:\KNLAB\2025_DesignLab\node_modules\tailwindcss\dist\lib.js:38:1629)]
+    at turbopack:///[turbopack-node]/transforms/postcss.ts:56:14 [F:\KNLAB\2025_DesignLab\.next\build\chunks\[root-of-the-server]__51225daf._.js:140:20]
+    [at <anonymous>]
+    at Module.init (turbopack:///[turbopack-node]/transforms/postcss.ts:43:33) [F:\KNLAB\2025_DesignLab\.next\build\chunks\[root-of-the-server]__51225daf._.js:130:35]
+    at run (turbopack:///[turbopack-node]/ipc/evaluate.ts:77:20) [F:\KNLAB\2025_DesignLab\.next\build\chunks\[root-of-the-server]__974941ed._.js:429:26]
+    [at process.processTicksAndRejections (node:internal/process/task_queues:105:5)]
+
+Import traces:
+  Client Component Browser:
+    ./src/components/layout/Header.module.css [Client Component Browser]
+    ./src/components/layout/Header.tsx [Client Component Browser]
+    ./src/components/layout/MainLayout.tsx [Client Component Browser]
+    ./src/components/layout/MainLayout.tsx [Server Component]
+    ./src/app/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/components/layout/Header.module.css [Client Component SSR]
+    ./src/components/layout/Header.tsx [Client Component SSR]
+    ./src/components/layout/MainLayout.tsx [Client Component SSR]
+    ./src/components/layout/MainLayout.tsx [Server Component]
+    ./src/app/page.tsx [Server Component]
+
+
+./src/components/layout/MainLayout.module.css
+Error evaluating Node.js code
+Error: It looks like you're trying to use `tailwindcss` directly as a PostCSS plugin. The PostCSS plugin has moved to a separate package, so to continue using Tailwind CSS with PostCSS you'll need to install `@tailwindcss/postcss` and update your PostCSS configuration.
+    [at at (F:\KNLAB\2025_DesignLab\node_modules\tailwindcss\dist\lib.js:38:1629)]
+    at turbopack:///[turbopack-node]/transforms/postcss.ts:56:14 [F:\KNLAB\2025_DesignLab\.next\build\chunks\[root-of-the-server]__51225daf._.js:140:20]
+    [at <anonymous>]
+    at Module.init (turbopack:///[turbopack-node]/transforms/postcss.ts:43:33) [F:\KNLAB\2025_DesignLab\.next\build\chunks\[root-of-the-server]__51225daf._.js:130:35]
+    at run (turbopack:///[turbopack-node]/ipc/evaluate.ts:77:20) [F:\KNLAB\2025_DesignLab\.next\build\chunks\[root-of-the-server]__974941ed._.js:429:26]
+    [at process.processTicksAndRejections (node:internal/process/task_queues:105:5)]
+
+Import traces:
+  Client Component Browser:
+    ./src/components/layout/MainLayout.module.css [Client Component Browser]
+    ./src/components/layout/MainLayout.tsx [Client Component Browser]
+    ./src/components/layout/MainLayout.tsx [Server Component]
+    ./src/app/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/components/layout/MainLayout.module.css [Client Component SSR]
+    ./src/components/layout/MainLayout.tsx [Client Component SSR]
+    ./src/components/layout/MainLayout.tsx [Server Component]
+    ./src/app/page.tsx [Server Component]
+
+
+./src/components/layout/Sidebar.module.css
+Error evaluating Node.js code
+Error: It looks like you're trying to use `tailwindcss` directly as a PostCSS plugin. The PostCSS plugin has moved to a separate package, so to continue using Tailwind CSS with PostCSS you'll need to install `@tailwindcss/postcss` and update your PostCSS configuration.
+    [at at (F:\KNLAB\2025_DesignLab\node_modules\tailwindcss\dist\lib.js:38:1629)]
+    at turbopack:///[turbopack-node]/transforms/postcss.ts:56:14 [F:\KNLAB\2025_DesignLab\.next\build\chunks\[root-of-the-server]__51225daf._.js:140:20]
+    [at <anonymous>]
+    at Module.init (turbopack:///[turbopack-node]/transforms/postcss.ts:43:33) [F:\KNLAB\2025_DesignLab\.next\build\chunks\[root-of-the-server]__51225daf._.js:130:35]
+    at run (turbopack:///[turbopack-node]/ipc/evaluate.ts:77:20) [F:\KNLAB\2025_DesignLab\.next\build\chunks\[root-of-the-server]__974941ed._.js:429:26]
+    [at process.processTicksAndRejections (node:internal/process/task_queues:105:5)]
+
+Import traces:
+  Client Component Browser:
+    ./src/components/layout/Sidebar.module.css [Client Component Browser]
+    ./src/components/layout/Sidebar.tsx [Client Component Browser]
+    ./src/components/layout/MainLayout.tsx [Client Component Browser]
+    ./src/components/layout/MainLayout.tsx [Server Component]
+    ./src/app/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/components/layout/Sidebar.module.css [Client Component SSR]
+    ./src/components/layout/Sidebar.tsx [Client Component SSR]
+    ./src/components/layout/MainLayout.tsx [Client Component SSR]
+    ./src/components/layout/MainLayout.tsx [Server Component]
+    ./src/app/page.tsx [Server Component]
+
+
+./src/components/layout/Workspace.module.css
+Error evaluating Node.js code
+Error: It looks like you're trying to use `tailwindcss` directly as a PostCSS plugin. The PostCSS plugin has moved to a separate package, so to continue using Tailwind CSS with PostCSS you'll need to install `@tailwindcss/postcss` and update your PostCSS configuration.
+    [at at (F:\KNLAB\2025_DesignLab\node_modules\tailwindcss\dist\lib.js:38:1629)]
+    at turbopack:///[turbopack-node]/transforms/postcss.ts:56:14 [F:\KNLAB\2025_DesignLab\.next\build\chunks\[root-of-the-server]__51225daf._.js:140:20]
+    [at <anonymous>]
+    at Module.init (turbopack:///[turbopack-node]/transforms/postcss.ts:43:33) [F:\KNLAB\2025_DesignLab\.next\build\chunks\[root-of-the-server]__51225daf._.js:130:35]
+    at run (turbopack:///[turbopack-node]/ipc/evaluate.ts:77:20) [F:\KNLAB\2025_DesignLab\.next\build\chunks\[root-of-the-server]__974941ed._.js:429:26]
+    [at process.processTicksAndRejections (node:internal/process/task_queues:105:5)]
+
+Import traces:
+  Client Component Browser:
+    ./src/components/layout/Workspace.module.css [Client Component Browser]
+    ./src/components/layout/Workspace.tsx [Client Component Browser]
+    ./src/components/layout/MainLayout.tsx [Client Component Browser]
+    ./src/components/layout/MainLayout.tsx [Server Component]
+    ./src/app/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/components/layout/Workspace.module.css [Client Component SSR]
+    ./src/components/layout/Workspace.tsx [Client Component SSR]
+    ./src/components/layout/MainLayout.tsx [Client Component SSR]
+    ./src/components/layout/MainLayout.tsx [Server Component]
+    ./src/app/page.tsx [Server Component]
+
+
+./src/components/preview/PreviewComponents.module.css
+Error evaluating Node.js code
+Error: It looks like you're trying to use `tailwindcss` directly as a PostCSS plugin. The PostCSS plugin has moved to a separate package, so to continue using Tailwind CSS with PostCSS you'll need to install `@tailwindcss/postcss` and update your PostCSS configuration.
+    [at at (F:\KNLAB\2025_DesignLab\node_modules\tailwindcss\dist\lib.js:38:1629)]
+    at turbopack:///[turbopack-node]/transforms/postcss.ts:56:14 [F:\KNLAB\2025_DesignLab\.next\build\chunks\[root-of-the-server]__51225daf._.js:140:20]
+    [at <anonymous>]
+    at Module.init (turbopack:///[turbopack-node]/transforms/postcss.ts:43:33) [F:\KNLAB\2025_DesignLab\.next\build\chunks\[root-of-the-server]__51225daf._.js:130:35]
+    at run (turbopack:///[turbopack-node]/ipc/evaluate.ts:77:20) [F:\KNLAB\2025_DesignLab\.next\build\chunks\[root-of-the-server]__974941ed._.js:429:26]
+    [at process.processTicksAndRejections (node:internal/process/task_queues:105:5)]
+
+Import traces:
+  Client Component Browser:
+    ./src/components/preview/PreviewComponents.module.css [Client Component Browser]
+    ./src/components/preview/PreviewComponents.tsx [Client Component Browser]
+    ./src/components/layout/Workspace.tsx [Client Component Browser]
+    ./src/components/layout/MainLayout.tsx [Client Component Browser]
+    ./src/components/layout/MainLayout.tsx [Server Component]
+    ./src/app/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/components/preview/PreviewComponents.module.css [Client Component SSR]
+    ./src/components/preview/PreviewComponents.tsx [Client Component SSR]
+    ./src/components/layout/Workspace.tsx [Client Component SSR]
+    ./src/components/layout/MainLayout.tsx [Client Component SSR]
+    ./src/components/layout/MainLayout.tsx [Server Component]
+    ./src/app/page.tsx [Server Component]
+
+
+    at Module.init (turbopack:///[turbopack-node]/transforms/postcss.ts:43:33) [F:\KNLAB\2025_DesignLab\.next\build\chunks\[root-of-the-server]__51225daf._.js:130:35])
+    at run (turbopack:///[turbopack-node]/ipc/evaluate.ts:77:20) [F:\KNLAB\2025_DesignLab\.next\build\chunks\[root-of-the-server]__974941ed._.js:429:26])
+    at Module.init (turbopack:///[turbopack-node]/transforms/postcss.ts:43:33) [F:\KNLAB\2025_DesignLab\.next\build\chunks\[root-of-the-server]__51225daf._.js:130:35])
+    at run (turbopack:///[turbopack-node]/ipc/evaluate.ts:77:20) [F:\KNLAB\2025_DesignLab\.next\build\chunks\[root-of-the-server]__974941ed._.js:429:26])
+    at Module.init (turbopack:///[turbopack-node]/transforms/postcss.ts:43:33) [F:\KNLAB\2025_DesignLab\.next\build\chunks\[root-of-the-server]__51225daf._.js:130:35])
+    at run (turbopack:///[turbopack-node]/ipc/evaluate.ts:77:20) [F:\KNLAB\2025_DesignLab\.next\build\chunks\[root-of-the-server]__974941ed._.js:429:26])
+    at Module.init (turbopack:///[turbopack-node]/transforms/postcss.ts:43:33) [F:\KNLAB\2025_DesignLab\.next\build\chunks\[root-of-the-server]__51225daf._.js:130:35])
+    at run (turbopack:///[turbopack-node]/ipc/evaluate.ts:77:20) [F:\KNLAB\2025_DesignLab\.next\build\chunks\[root-of-the-server]__974941ed._.js:429:26])
+    at Module.init (turbopack:///[turbopack-node]/transforms/postcss.ts:43:33) [F:\KNLAB\2025_DesignLab\.next\build\chunks\[root-of-the-server]__51225daf._.js:130:35])
+    at run (turbopack:///[turbopack-node]/ipc/evaluate.ts:77:20) [F:\KNLAB\2025_DesignLab\.next\build\chunks\[root-of-the-server]__974941ed._.js:429:26])
+    at Module.init (turbopack:///[turbopack-node]/transforms/postcss.ts:43:33) [F:\KNLAB\2025_DesignLab\.next\build\chunks\[root-of-the-server]__51225daf._.js:130:35])
+    at run (turbopack:///[turbopack-node]/ipc/evaluate.ts:77:20) [F:\KNLAB\2025_DesignLab\.next\build\chunks\[root-of-the-server]__974941ed._.js:429:26])
+    at Module.init (turbopack:///[turbopack-node]/transforms/postcss.ts:43:33) [F:\KNLAB\2025_DesignLab\.next\build\chunks\[root-of-the-server]__51225daf._.js:130:35])
+    at run (turbopack:///[turbopack-node]/ipc/evaluate.ts:77:20) [F:\KNLAB\2025_DesignLab\.next\build\chunks\[root-of-the-server]__974941ed._.js:429:26])

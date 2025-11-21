@@ -172,3 +172,9 @@
     border-radius: var(--radius-sm);
     cursor: pointer;
 }
+
+.actions {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: var(--space-4);
+}

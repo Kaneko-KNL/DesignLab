@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { useDesignStore } from '@/store/designStore';
-import { Menu, Home, Settings, User, LogOut } from 'lucide-react';
+import { Home, Settings, User, LogOut } from 'lucide-react';
 
 export function PreviewDrawer() {
     const { theme } = useDesignStore();

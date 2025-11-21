@@ -4,12 +4,16 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { useDesignStore } from '@/store/designStore';
 import styles from './PreviewComponents.module.css';
-import { Bell, Check, X, Menu, Search, User } from 'lucide-react';
+import { Search } from 'lucide-react';
+import { getContrastMutedColor } from '@/lib/colors';
 
 export function PreviewSection({ title, children }: { title: string; children: React.ReactNode }) {
+    const { theme } = useDesignStore();
     return (
         <div className={styles.section}>
-            <h3 className={styles.sectionTitle}>{title}</h3>
+            <h3 className={styles.sectionTitle} style={{
+                color: getContrastMutedColor(theme.colors.background)
+            }}>{title}</h3>
             <div className={styles.grid}>{children}</div>
         </div>
     );
@@ -46,7 +50,6 @@ export function PreviewCard() {
                 color: theme.colors.text,
                 borderRadius: theme.radius,
                 boxShadow: theme.shadow,
-                borderColor: theme.colors.accent, // Just for visual flair
             }}
         >
             <div className={styles.cardHeader}>

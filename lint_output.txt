@@ -1,0 +1,17 @@
+
+> temp_app@0.1.0 lint
+> eslint
+
+
+F:\KNLAB\2025_DesignLab\src\components\parts\base\Image.tsx
+  32:13  warning  Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+
+F:\KNLAB\2025_DesignLab\src\lib\layout\LayoutGenerator.ts
+  73:47  warning  'areas' is defined but never used  @typescript-eslint/no-unused-vars
+
+F:\KNLAB\2025_DesignLab\src\types\layout.ts
+   1:10  warning  'DesignTheme' is defined but never used   @typescript-eslint/no-unused-vars
+  43:28  error    Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+笨・4 problems (1 error, 3 warnings)
+
