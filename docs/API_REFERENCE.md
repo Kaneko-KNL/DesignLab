@@ -82,6 +82,23 @@ const randomizeColors = useDesignStore(state => state.randomizeColors);
 randomizeColors();
 ```
 
+**`setBackgroundEffect(updates: Partial<BackgroundEffect>): void`**
+
+Updates background effect settings.
+
+```typescript
+const setBackgroundEffect = useDesignStore(state => state.setBackgroundEffect);
+
+// Set effect type
+setBackgroundEffect({ type: 'shapes', enabled: true });
+
+// Configure color mode
+setBackgroundEffect({ colorMode: 'concept' });
+
+// Adjust parameters
+setBackgroundEffect({ param1: 30, param2: 15 });
+```
+
 #### Selectors
 
 ```typescript
@@ -90,6 +107,8 @@ const theme = useDesignStore(selectTheme);
 const meta = useDesignStore(selectMeta);
 const type = useDesignStore(selectType);
 const typography = useDesignStore(selectTypography);
+const backgroundEffect = useDesignStore(state => state.theme.backgroundEffect);
+const conceptColors = useDesignStore(state => state.conceptColors);
 ```
 
 ### Layout Store (`useLayoutStore`)
@@ -439,6 +458,33 @@ interface DesignTheme {
     shadow: string;
     fontHeading: string;
     fontBody: string;
+    backgroundEffect: BackgroundEffect;
+}
+
+type BackgroundEffectType = 
+    | 'none'
+    | 'gradient'
+    | 'pattern'
+    | 'shapes'
+    | 'glow'
+    | 'blobs'
+    | 'lines'
+    | 'waves'
+    | 'spotlight'
+    | 'parallax'
+    | 'noise';
+
+type EffectColorMode = 'light' | 'dark' | 'concept';
+
+interface BackgroundEffect {
+    enabled: boolean;
+    type: BackgroundEffectType;
+    animation: boolean;
+    interactive: boolean;
+    colorMode: EffectColorMode;
+    particleCount: number; // Legacy
+    param1: number; // Effect-specific parameter 1
+    param2: number; // Effect-specific parameter 2
 }
 ```
 

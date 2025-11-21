@@ -148,6 +148,71 @@ Access global colors in the **Global Styles** tab:
    - **Japanese**: Enable/disable and select font
    - **English**: Enable/disable and select font
 
+## Background Effects
+
+### Overview
+
+DesignLab v0.1.1 introduces an advanced background effects system with 10+ customizable animated effects that add visual interest to your designs.
+
+### Accessing Background Effects
+
+1. Open the **Design** tab in the left sidebar
+2. Scroll to the **Background Effects** section
+3. Select an effect type from the dropdown
+
+### Available Effects
+
+- **None**: No background effect (default)
+- **Gradient**: Animated multi-color gradient
+- **Pattern**: Repeating geometric patterns
+- **Shapes**: Floating circular shapes that rise from the bottom
+- **Glow**: Pulsing radial glow effect
+- **Blobs**: Organic blob shapes with smooth animations
+- **Lines**: Animated flowing lines
+- **Waves**: Wave patterns at the bottom
+- **Spotlight**: Mouse-following spotlight effect
+- **Parallax**: Mouse-reactive parallax layers
+- **Noise**: Animated grain texture
+
+### Effect Controls
+
+Each effect has customizable parameters:
+
+#### Animation & Interactivity
+
+- **Animation**: Enable/disable effect animations
+- **Interactive**: Enable mouse interaction (for Spotlight and Parallax)
+
+#### Color Mode
+
+Choose how colors are generated for the effect:
+
+- **Concept**: Uses unused colors from the concept palette (default)
+- **Light**: Generates colors lighter than the background
+- **Dark**: Generates colors darker than the background
+
+#### Effect-Specific Parameters
+
+Each effect type has 1-2 unique sliders:
+
+- **Shapes**: Particle Count (5-50) + Duration (5-30s)
+- **Gradient**: Speed (5-30s)
+- **Pattern**: Size (20-100px)
+- **Glow**: Position (0-100%) + Speed (3-15s)
+- **Blobs**: Scale (0.5-2.0) + Position (0-100%)
+- **Lines**: Line Count (1-10) + Direction (0-360°)
+- **Waves**: Speed (5-30s) + Scale (0.5-2.0)
+- **Spotlight**: Follow Speed (0.1-1.0) + Size (200-1000px)
+- **Parallax**: Spacing (20-100px) + Angle (0-360°)
+- **Noise**: Grain Size (0.5-2.0) + Density (0.05-0.2)
+
+### Best Practices
+
+- **Start subtle**: Begin with low opacity effects and adjust as needed
+- **Match your theme**: Use the Concept color mode for cohesive designs
+- **Test performance**: Some effects may impact performance on lower-end devices
+- **Consider context**: Use interactive effects for engaging landing pages
+
 ## Exporting Your Design
 
 ### Export as YAML

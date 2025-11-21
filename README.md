@@ -2,7 +2,7 @@
 
 **DesignLab** is an intelligent web design system that automatically generates beautiful, responsive layouts using AI-powered design principles. Create stunning websites with just a few clicks.
 
-![Version](https://img.shields.io/badge/version-0.1.0-blue)
+![Version](https://img.shields.io/badge/version-0.1.1-blue)
 ![Next.js](https://img.shields.io/badge/Next.js-16.0-black)
 ![TypeScript](https://img.shields.io/badge/TypeScript-5.0-blue)
 ![License](https://img.shields.io/badge/license-MIT-green)
@@ -13,6 +13,7 @@
 - 🧩 **Rich Component Library** - Pre-built components for heroes, features, content, and footers
 - 🎯 **Drag & Drop Editor** - Intuitive interface for customizing layouts
 - 🌈 **Smart Color System** - Automatic color palette generation with harmony rules
+- 🎭 **Animated Background Effects** - 10+ customizable effects with color modes and parameters
 - 📱 **Responsive Design** - Built-in viewport switching (desktop, tablet, mobile)
 - 💾 **Multiple Export Formats** - Export to YAML or React components
 - ⚡ **Real-time Preview** - See changes instantly as you design
